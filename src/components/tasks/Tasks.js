@@ -1,51 +1,51 @@
-import { onValue, ref, remove } from "firebase/database";
+import { ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
+import EditTaskModalForm from "../edit-modal/EditTaskModalForm";
+import { useDispatch, useSelector } from "react-redux";
+import { getFullListTasksFromDatabase } from "../../redux/actions/actions";
 
 const Tasks = () => {
-    const [tasksList, setTasksList] = useState([]);
+    const [showEditForm, setShowEditForm] = useState(false); 
+    const [currentUidTask, setCurrentUidTask] = useState('');
 
-    // read tasks
+    const dispatch = useDispatch();
+    const tasks = useSelector(elem => elem.tasks.data);
+
+    // get tasks
     useEffect(() => {
-        getFullListTasksFromDatabase()
+        dispatch(getFullListTasksFromDatabase());
     }, [])
-
-    const getFullListTasksFromDatabase = () => {
-        onValue(ref(db), item => {
-            setTasksList([]);
-
-            const data = item.val();
-            if (data !== null) {
-                Object.values(data).map(elem => {
-                    setTasksList((prev) => {
-                        return [elem, ...prev]
-                    })
-                })
-            }
-        })
-    }
 
     // remove task
     const removeCurrentTask = (id) => {
-        remove(ref(db, id))
+        remove(ref(db, id));
+    }
+
+    // edit task
+    const updateCurrentTask = (uid) => {
+        setShowEditForm(!showEditForm);
+        setCurrentUidTask(uid);
     }
 
     return (
         <div className="tasks">
             {
-                tasksList.map(item => {
+                Object.values(tasks).map(item => {
                     return (
-                        <li>
+                        <li key={item.id}>
                             <span>{item.titleTask}</span>
                             <span>{item.descrTask}</span>
 
-                            <button>edit</button>
+                            <button onClick={() => updateCurrentTask(item.id)}>edit</button>
                             <button>done</button>
                             <button onClick={() => removeCurrentTask(item.id)}>remove</button>
                         </li>
                     )
                 })
             }
+            {showEditForm && <EditTaskModalForm uid={currentUidTask}/>}
+
         </div>
     )
 }

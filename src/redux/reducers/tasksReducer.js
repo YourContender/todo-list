@@ -3,7 +3,6 @@ const initialState = {
 }
 
 const tasksReducer = (state = initialState, action) => {
-    console.log('reducer: ', action)
     switch (action.type) {
         case 'GET_TASKS_LIST':
             return {
@@ -13,6 +12,11 @@ const tasksReducer = (state = initialState, action) => {
         case 'ADD_NEW_TASK': 
             return {
                 ...state,
+                data: action.payload
+            }
+        case 'REMOVE_TASK': 
+            return {
+                ...state, 
                 data: action.payload
             }
         

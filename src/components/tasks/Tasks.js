@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import EditTaskModalForm from "../edit-modal/EditTaskModalForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getFullListTasksFromDatabase } from "../../redux/actions/actions";
+import { getFullListTasksFromDatabase, removeCurrentTaskFromDatabase } from "../../redux/actions/actions";
 
 const Tasks = () => {
     const [showEditForm, setShowEditForm] = useState(false); 
@@ -19,7 +19,10 @@ const Tasks = () => {
 
     // remove task
     const removeCurrentTask = (id) => {
-        remove(ref(db, id));
+        const newListTask = Object.values(tasks).filter(item => item.id !== id);
+        console.log(newListTask);
+
+        dispatch(removeCurrentTaskFromDatabase(id, newListTask))
     }
 
     // edit task

@@ -1,4 +1,4 @@
-import { onValue, ref, set, update } from "firebase/database";
+import { onValue, ref, remove, set, update } from "firebase/database";
 import { db } from "../../firebase";
 
 export const getFullListTasksFromDatabase = () => {
@@ -23,6 +23,17 @@ export const addNewTaskToDatabase = (task, added, uid) => {
         dispatch({
             type: 'ADD_NEW_TASK',
             payload: added
+        })
+    }
+}
+
+export const removeCurrentTaskFromDatabase = (uid, newListTask) => {
+    return async dispatch => {
+        remove(ref(db, uid));
+
+        dispatch({
+            type: 'REMOVE_TASK',
+            payload: newListTask
         })
     }
 }

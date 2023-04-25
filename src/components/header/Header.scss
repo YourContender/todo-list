@@ -1,0 +1,41 @@
+.header {
+    background: linear-gradient( rgba(27, 26, 26, 0.8), rgba(71, 31, 55, 0.5) ), url(../../images/e2fa4f4218c688b5518696cb7a97c531.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    object-fit: fill;
+    height: 350px;
+    width: 100vw;
+    &_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 50px 0 ;
+        h2 {
+            margin: 0;
+            color: #fff;
+            letter-spacing: 1px;
+            font-size: 36px;
+            padding-left: 20px;
+        }
+        span {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 12px;
+            padding-left: 25px;
+        }
+    }
+    &_theme {
+        padding-right: 35px;
+        button {
+            background: none;
+            font-size: 36px;
+            color: #fff;
+            border: none;
+        }
+    }
+}
+

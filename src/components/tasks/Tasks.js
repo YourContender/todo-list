@@ -1,13 +1,17 @@
-import { ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
-import { db } from "../../firebase";
-import EditTaskModalForm from "../edit-modal/EditTaskModalForm";
 import { useDispatch, useSelector } from "react-redux";
 import { getFullListTasksFromDatabase, removeCurrentTaskFromDatabase } from "../../redux/actions/actions";
+import { faEdit, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EditTaskModalForm from "../edit-modal/EditTaskModalForm";
+import Forms from "../forms/Forms";
+import './Tasks.scss';
+import StartWork from "../start-work/StartWork";
 
 const Tasks = () => {
     const [showEditForm, setShowEditForm] = useState(false); 
     const [currentUidTask, setCurrentUidTask] = useState('');
+    const [showForms, setShowForms] = useState(false);
 
     const dispatch = useDispatch();
     const tasks = useSelector(elem => elem.tasks.data);
@@ -20,7 +24,6 @@ const Tasks = () => {
     // remove task
     const removeCurrentTask = (id) => {
         const newListTask = Object.values(tasks).filter(item => item.id !== id);
-        console.log(newListTask);
 
         dispatch(removeCurrentTaskFromDatabase(id, newListTask))
     }
@@ -33,22 +36,40 @@ const Tasks = () => {
 
     return (
         <div className="tasks">
-            {
-                Object.values(tasks).map(item => {
-                    return (
-                        <li key={item.id}>
-                            <span>{item.titleTask}</span>
-                            <span>{item.descrTask}</span>
+            <div className="tasks_content">
+                {
+                    showForms ? 
+                        <Forms setShowForms={setShowForms}/> 
+                        : 
+                        <StartWork setShowForms={setShowForms}/>
+                }
+                
+                <div className="tasks_container">
+                {
+                    Object.values(tasks).map(item => {
+                        return (
+                            <div className="tasks_content-item" key={item.id}>
+                                <button className="tasks_content-item-done"></button>
+                                <div className="tasks_content-item-text">
+                                    <h4>{item.titleTask}</h4>
+                                    <span>{item.descrTask}</span>
+                                </div>
 
-                            <button onClick={() => updateCurrentTask(item.id)}>edit</button>
-                            <button>done</button>
-                            <button onClick={() => removeCurrentTask(item.id)}>remove</button>
-                        </li>
-                    )
-                })
-            }
-            {showEditForm && <EditTaskModalForm uid={currentUidTask}/>}
-
+                                <div className="tasks_content-item-btns">
+                                    <button onClick={() => updateCurrentTask(item.id)}>
+                                        <FontAwesomeIcon icon={faEdit}/>
+                                    </button>
+                                    <button onClick={() => removeCurrentTask(item.id)}>
+                                        <FontAwesomeIcon icon={faXmark} />
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                </div>
+                {showEditForm && <EditTaskModalForm uid={currentUidTask}/>}
+            </div>
         </div>
     )
 }

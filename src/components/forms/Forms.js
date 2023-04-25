@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewTaskToDatabase } from '../../redux/actions/actions';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import './Forms.scss';
 
-const Forms = () => {
+const Forms = ({ setShowForms }) => {
     const [titleTask, setTitleTask] = useState('');
     const [descrTask, setDescrTask] = useState('');
 
@@ -39,21 +42,34 @@ const Forms = () => {
 
     return (
         <div className="forms">
-            <input 
-                type="text" 
-                placeholder="enter title" 
-                value={titleTask}
-                onChange={enterTextInTitle}
-            />
+            <button 
+                className="forms_close"
+                onClick={() => setShowForms(false)}    
+            >
+                <FontAwesomeIcon icon={faXmark} />
+            </button>
+            <div className="forms_input_box">
+                <input 
+                    type="text" 
+                    required='required' 
+                    value={titleTask}
+                    onChange={enterTextInTitle}
+                />
+                <span>Enter title task</span>
+            </div>
 
-            <input 
-                type="text" 
-                placeholder="enter description" 
-                value={descrTask}
-                onChange={enterTextInDescr}
-            />
+            <div className="forms_input_box">
+                <input 
+                    type="text" 
+                    required='required' 
+                    value={descrTask}
+                    onChange={enterTextInDescr}
+                />
+                <span>Enter description task</span>
+            </div>
 
             <button 
+                className='forms_btn'
                 onClick={createTaskToDatabase}
             >
                 Submit

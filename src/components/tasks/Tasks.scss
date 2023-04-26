@@ -1,6 +1,6 @@
 .tasks {
     height: calc(100vh - 350px);
-    background-color: #050505eb;
+    background-color: rgba(23, 23, 27, 0.92);
     position: relative;
     &_container {
         height: 450px;
@@ -21,7 +21,7 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: -20%;
+        top: -22%;
         width: 800px;
         text-align: center;
         margin-top: -50px;
@@ -61,6 +61,7 @@
             &-btns {
                 display: flex;
                 align-items: flex-end;
+                margin-left: 35px;
                 button {
                     background: none;
                     border: none;

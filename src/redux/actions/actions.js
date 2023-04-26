@@ -40,10 +40,10 @@ export const removeCurrentTaskFromDatabase = (uid, newListTask) => {
 
 export const updateCurrentTaskFromDatabase = (updateListTask, id, editTitle, editDescr) => {
     return async dispatch => {
-        update(ref(db, `/${id.uid}`), {
+        update(ref(db, `/${id}`), {
             titleTask: editTitle,
             descrTask: editDescr,
-            id: id.uid,
+            id: id,
             stateTask: false
         })
 

@@ -1,0 +1,11 @@
+.empty {
+    display: flex;
+    justify-content: center;
+    span {
+        color: #595959;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 18px;
+        padding-top: 15%;
+    }
+}

@@ -7,9 +7,17 @@ const StartWork = ({ setShowForms }) => {
                 Create Task
             </button>
 
-            <button>
-                Filters
-            </button>
+            <div className='start_filters'>
+                <span>
+                    <a href="#">All tasks</a>
+                </span>
+                <span>
+                    <a href="#">Completed</a>
+                </span>
+                <span>
+                    <a href="#">Outstanding</a>
+                </span>
+            </div>
         </div>
     )
 }

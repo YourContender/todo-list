@@ -1,6 +1,7 @@
 .start {
     height: 210px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid #595959;
@@ -20,6 +21,21 @@
         margin: 0 25px;
         &:hover {
             background-position: right;
+        }
+    }
+    &_filters {
+        margin-top: 30px;
+        span {
+            margin: 0px 45px;
+            a {
+                transition: .7s;
+                text-transform: uppercase;
+                text-decoration: none;
+                color: #595959;
+                &:hover {
+                    color: #00dfc4;
+                }
+            }
         }
     }
 }

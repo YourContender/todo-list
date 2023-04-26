@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentTaskFromDatabase } from "../../redux/actions/actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import './EditTaskModalForm.scss';
 
-const EditTaskModalForm = (uid) => {
+const EditTaskModalForm = ({ uid, setShowEditForm }) => {
     const [editTitle, setEditTitle] = useState('');
     const [editDescr, setEditDescr] = useState('');
 
@@ -19,38 +22,57 @@ const EditTaskModalForm = (uid) => {
 
     const editCurrentTask = () => {
         const updateListTask = Object.values(tasks).map(item => {
-            if (item.id === uid.uid) {
+            if (item.id === uid) {
                 return {
                     titleTask: editTitle,
                     descrTask: editDescr,
-                    id: uid.uid,
+                    id: uid,
                     stateTask: false
                 }
             } else {
                 return item
             }
         })
-        
+
+        setShowEditForm(false);
         dispatch(updateCurrentTaskFromDatabase(updateListTask, uid, editTitle, editDescr));
     }
 
     return (   
-        <div>
-            <input 
-                type="text" 
-                placeholder="edit title"
-                value={editTitle}
-                onChange={enterUpdateTitle}
-            />
+        <div className="edit">
+            <div className="edit_container">
+                <div className="edit_close">
+                    <button 
+                        className="edit_close-btn"
+                        onClick={() => setShowEditForm(false)}
+                    >
+                        <FontAwesomeIcon icon={faXmark} />
+                    </button>
+                </div>
+                <div>
+                    <div className="edit_input-box">
+                        <input 
+                            type="text" 
+                            required='required' 
+                            value={editTitle}
+                            onChange={enterUpdateTitle}
+                        />
+                        <span>update title</span>
+                    </div>
 
-            <input 
-                type="text" 
-                placeholder="edit descr"
-                value={editDescr}
-                onChange={enterUpdateDescr}
-            />
+                    <div className="edit_input-box">
+                        <input 
+                            type="text" 
+                            required='required' 
+                            value={editDescr}
+                            onChange={enterUpdateDescr}
+                        />
+                        <span>update description</span>
+                    </div>
+                </div>
 
-            <button onClick={editCurrentTask}>Submit</button>
+                <button className="edit_container-btn" onClick={editCurrentTask}>Submit</button>
+            </div>
         </div>
     )
 }

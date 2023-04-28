@@ -1,13 +1,26 @@
-import Forms from "./components/forms/Forms";
+import { useState } from "react";
+import EditTaskModalForm from "./components/edit-modal/EditTaskModalForm";
 import Header from "./components/header/Header";
 import Tasks from "./components/tasks/Tasks";
 
 function App () {
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [currentUidTask, setCurrentUidTask] = useState('');
+
     return (
         <>
             <Header/>
-            {/* <Forms/> */}
-            <Tasks/>
+            <Tasks 
+                setShowEditForm={setShowEditForm} 
+                showEditForm={showEditForm} 
+                setCurrentUidTask={setCurrentUidTask}/>
+            {
+                showEditForm && 
+                    <EditTaskModalForm 
+                        setShowEditForm={setShowEditForm} 
+                        uid={currentUidTask}
+                    />
+            }
         </>
     )
 }

@@ -22,10 +22,12 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
 
     const editCurrentTask = () => {
         const updateListTask = Object.values(tasks).map(item => {
+            console.log('state >>> ', editDescr.length);
+            console.log('task >>> ', item.descrTask);
             if (item.id === uid) {
                 return {
-                    titleTask: editTitle,
-                    descrTask: editDescr,
+                    titleTask: editTitle.length === 0 ? item.titleTask : editTitle,
+                    descrTask: editDescr.length === 0 ? item.descrTask : editDescr,
                     id: uid,
                     stateTask: false
                 }
@@ -35,7 +37,15 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
         })
 
         setShowEditForm(false);
-        dispatch(updateCurrentTaskFromDatabase(updateListTask, uid, editTitle, editDescr));
+
+        dispatch(
+            updateCurrentTaskFromDatabase(
+                updateListTask, 
+                uid, 
+                editTitle, 
+                editDescr
+            )
+        );
     }
 
     return (   
@@ -71,7 +81,12 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
                     </div>
                 </div>
 
-                <button className="edit_container-btn" onClick={editCurrentTask}>Submit</button>
+                <button 
+                    className="edit_container-btn" 
+                    onClick={editCurrentTask
+                }>
+                    Submit
+                </button>
             </div>
         </div>
     )

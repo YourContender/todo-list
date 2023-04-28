@@ -30,7 +30,7 @@ export const addNewTaskToDatabase = (task, added, uid) => {
 export const removeCurrentTaskFromDatabase = (uid, newListTask) => {
     return async dispatch => {
         remove(ref(db, uid));
-
+ 
         dispatch({
             type: 'REMOVE_TASK',
             payload: newListTask
@@ -39,10 +39,11 @@ export const removeCurrentTaskFromDatabase = (uid, newListTask) => {
 }
 
 export const updateCurrentTaskFromDatabase = (updateListTask, id, editTitle, editDescr) => {
+    console.log('obj: ', updateListTask);
     return async dispatch => {
         update(ref(db, `/${id}`), {
-            titleTask: editTitle,
-            descrTask: editDescr,
+            titleTask: updateListTask[0].titleTask,
+            descrTask: updateListTask[0].descrTask,
             id: id,
             stateTask: false
         })

@@ -1,10 +1,10 @@
 .edit {
+    position: absolute;
     width: 100vw;
     height: 100vh;
     backdrop-filter: blur(8px);
-    position: absolute;
-    top: -25%;
-    left: -42%;
+    top: 0%;
+    left: 0%;
     display: flex;
     align-items: center;
     justify-content: center;

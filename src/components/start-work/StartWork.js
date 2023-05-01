@@ -15,7 +15,7 @@ const StartWork = ({ setShowForms }) => {
                     <a href="#">Completed</a>
                 </span>
                 <span>
-                    <a href="#">Outstanding</a>
+                    <a href="#">Process</a>
                 </span>
             </div>
         </div>

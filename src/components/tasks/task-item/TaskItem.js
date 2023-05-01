@@ -1,13 +1,25 @@
-import { faEdit, faXmark, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const TaskItem = ({ item, updateCurrentTask, removeCurrentTask}) => {
-    const { titleTask, descrTask, id } = item;
+const TaskItem = ({ item, updateCurrentTask, removeCurrentTask, editCurrentTask}) => {
+    const { titleTask, descrTask, id, stateTask } = item;
+
+    const classBgBtn = stateTask ? 'tasks_content-item-done' : 'tasks_content-item-process';
+    const classStateTask = stateTask ? 'tasks_content-item success' : 'tasks_content-item';
+    const textDecoration = stateTask ? 'tasks_content-item-text success-text' : "tasks_content-item-text"
     
+    const changeStateTask = (uid) => {
+        editCurrentTask(uid);
+    }
+
     return (
-        <div className="tasks_content-item" key={id}>
-            <button className="tasks_content-item-done"></button>
-            <div className="tasks_content-item-text">
+        <div className={classStateTask} key={id}>
+            <button 
+                className={classBgBtn}
+                onClick={() => changeStateTask(id)}
+            >
+            </button>
+            <div className={textDecoration}>
                 <h4>{titleTask}</h4>
                 <span>{descrTask}</span>
             </div>

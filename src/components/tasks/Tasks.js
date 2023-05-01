@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFullListTasksFromDatabase, removeCurrentTaskFromDatabase } from "../../redux/actions/actions";
+import { getFullListTasksFromDatabase, removeCurrentTaskFromDatabase, updateCurrentTaskFromDatabase } from "../../redux/actions/actions";
 import Forms from "../forms/Forms";
 import StartWork from "../start-work/StartWork";
 import TaskItem from "./task-item/TaskItem";
@@ -31,6 +31,31 @@ const Tasks = ({ setShowEditForm, setCurrentUidTask }) => {
         setCurrentUidTask(uid);
     }
 
+    const editCurrentTask = (uid) => {
+        const updateListTask = Object.values(tasks).map(item => {
+            if (item.id === uid) {
+                return {
+                    titleTask: item.titleTask,
+                    descrTask: item.descrTask,
+                    id: uid,
+                    stateTask: !item.stateTask
+                }
+            } else {
+                return item
+            }
+        })
+
+        const currentTask = updateListTask.filter(item => item.id === uid)
+
+        dispatch(
+            updateCurrentTaskFromDatabase(
+                updateListTask, 
+                currentTask,
+                uid
+            )
+        );
+    }
+
     return (
         <div className="tasks">
             <div className="tasks_content">
@@ -50,6 +75,7 @@ const Tasks = ({ setShowEditForm, setCurrentUidTask }) => {
                                     item={item} 
                                     removeCurrentTask={removeCurrentTask} 
                                     updateCurrentTask={updateCurrentTask}
+                                    editCurrentTask={editCurrentTask}
                                 />
                             )
                         })

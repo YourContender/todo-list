@@ -1,3 +1,12 @@
+.success {
+    background-color: #283a44;
+    &-text {
+        transition: .5s ease-in;
+        text-decoration: line-through;
+        color: #f7f7f75e;
+    }
+}
+
 .tasks {
     height: calc(100vh - 350px);
     background-color: rgba(23, 23, 27, 0.92);
@@ -41,7 +50,17 @@
                 height: 20px;
                 border-radius: 100%;
                 border: 1px solid #595959;
+                background: green;
+                transition: .4s ease-in;
+                cursor: pointer;
+            }
+            &-process {
+                width: 20px;
+                height: 20px;
                 background: none;
+                border-radius: 100%;
+                border: 1px solid #595959;
+                transition: .4s ease-in;
                 cursor: pointer;
             }
             &-text {
@@ -50,6 +69,7 @@
                 flex-direction: column;
                 text-align: left;
                 padding-left: 20px;
+                transition: .5s ease-in;
                 h4 {
                     margin: 0;
                     text-transform: uppercase;

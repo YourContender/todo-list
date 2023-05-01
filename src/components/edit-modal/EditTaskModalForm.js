@@ -22,25 +22,26 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
 
     const editCurrentTask = () => {
         const updateListTask = Object.values(tasks).map(item => {
-            console.log('state >>> ', editDescr.length);
-            console.log('task >>> ', item.descrTask);
             if (item.id === uid) {
                 return {
                     titleTask: editTitle.length === 0 ? item.titleTask : editTitle,
                     descrTask: editDescr.length === 0 ? item.descrTask : editDescr,
                     id: uid,
-                    stateTask: false
+                    stateTask: item.stateTask
                 }
             } else {
                 return item
             }
         })
 
+        const currentTask = updateListTask.filter(item => item.id === uid)
+
         setShowEditForm(false);
 
         dispatch(
             updateCurrentTaskFromDatabase(
                 updateListTask, 
+                currentTask,
                 uid, 
                 editTitle, 
                 editDescr

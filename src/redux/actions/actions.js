@@ -38,14 +38,13 @@ export const removeCurrentTaskFromDatabase = (uid, newListTask) => {
     }
 }
 
-export const updateCurrentTaskFromDatabase = (updateListTask, id, editTitle, editDescr) => {
-    console.log('obj: ', updateListTask);
+export const updateCurrentTaskFromDatabase = (updateListTask, currentTask, id) => {
     return async dispatch => {
         update(ref(db, `/${id}`), {
-            titleTask: updateListTask[0].titleTask,
-            descrTask: updateListTask[0].descrTask,
+            titleTask: currentTask[0].titleTask,
+            descrTask: currentTask[0].descrTask,
             id: id,
-            stateTask: false
+            stateTask: currentTask[0].stateTask
         })
 
         dispatch({

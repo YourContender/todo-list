@@ -5,7 +5,17 @@
     background-position: center;
     object-fit: fill;
     height: 350px;
-    width: 100vw;
+    // width: 100vw;
+    transition: .7s ease-in;
+    &_day {
+        background: url(../../images/e2fa4f4218c688b5518696cb7a97c531.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        object-fit: fill;
+        height: 350px;
+        transition: .7s ease-in;
+    }
     &_container {
         display: flex;
         justify-content: space-between;

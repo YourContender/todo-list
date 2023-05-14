@@ -96,3 +96,27 @@
         
     }
 }
+
+@media (max-width: 575px) {
+    .edit {
+        &_container {
+            width: 425px;
+        }
+    }
+}
+
+@media (max-width: 475px) {
+    .edit {
+        &_container {
+            width: 385px;
+            height: 435px;
+        }
+        &_input {
+            &-box {
+                input {
+                    width: 90%;
+                }
+            }
+        }
+    }
+}

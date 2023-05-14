@@ -1,12 +1,14 @@
 import { faEdit, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const TaskItem = ({ item, updateCurrentTask, removeCurrentTask, editCurrentTask}) => {
+const TaskItem = ({ 
+    item, updateCurrentTask, removeCurrentTask, editCurrentTask
+}) => {
     const { titleTask, descrTask, id, stateTask } = item;
 
     const classBgBtn = stateTask ? 'tasks_content-item-done' : 'tasks_content-item-process';
     const classStateTask = stateTask ? 'tasks_content-item success' : 'tasks_content-item';
-    const textDecoration = stateTask ? 'tasks_content-item-text success-text' : "tasks_content-item-text"
+    const textDecoration = stateTask ? 'tasks_content-item-text success-text' : "tasks_content-item-text";
     
     const changeStateTask = (uid) => {
         editCurrentTask(uid);

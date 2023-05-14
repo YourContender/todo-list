@@ -5,21 +5,24 @@ import Tasks from "./components/tasks/Tasks";
 
 function App () {
     const [showEditForm, setShowEditForm] = useState(false);
+    const [changeTheme, setChangeTheme] = useState(false);
     const [currentUidTask, setCurrentUidTask] = useState('');
 
     return (
         <>
-            <Header/>
+            <Header 
+                changeTheme={changeTheme} 
+                setChangeTheme={setChangeTheme}/>
             <Tasks 
                 setShowEditForm={setShowEditForm} 
                 showEditForm={showEditForm} 
-                setCurrentUidTask={setCurrentUidTask}/>
+                setCurrentUidTask={setCurrentUidTask}
+                changeTheme={changeTheme}/>
             {
                 showEditForm && 
                     <EditTaskModalForm 
                         setShowEditForm={setShowEditForm} 
-                        uid={currentUidTask}
-                    />
+                        uid={currentUidTask}/>
             }
         </>
     )

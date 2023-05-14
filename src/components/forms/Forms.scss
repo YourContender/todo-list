@@ -77,3 +77,31 @@
         
     }
 }
+
+@media (max-width: 575px) {
+    .forms {
+        &_input {
+            &_box {
+                input {
+                    width: 90%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 475px) {
+    .forms {
+        &_close {
+            right: 5px;
+            top: 5px;
+        }
+        &_input {
+            &_box {
+                input {
+                    width: 86%;
+                }
+            }
+        }
+    }
+}

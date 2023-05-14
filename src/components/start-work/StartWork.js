@@ -1,6 +1,6 @@
 import './StartWork.scss';
 
-const StartWork = ({ setShowForms }) => {
+const StartWork = ({ setShowForms, changeFIlterTasks }) => {
     return (
         <div className="start">
             <button onClick={() => setShowForms(true)}>
@@ -9,13 +9,22 @@ const StartWork = ({ setShowForms }) => {
 
             <div className='start_filters'>
                 <span>
-                    <a href="#">All tasks</a>
+                    <a 
+                        href="#"
+                        onClick={() => changeFIlterTasks('all')}
+                    >All tasks</a>
                 </span>
                 <span>
-                    <a href="#">Completed</a>
+                    <a 
+                        href="#"
+                        onClick={() => changeFIlterTasks('done')}
+                    >Completed</a>
                 </span>
                 <span>
-                    <a href="#">Process</a>
+                    <a 
+                        href="#"
+                        onClick={() => changeFIlterTasks('proc')}
+                    >Process</a>
                 </span>
             </div>
         </div>

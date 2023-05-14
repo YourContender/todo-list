@@ -5,14 +5,22 @@
         text-decoration: line-through;
         color: #f7f7f75e;
     }
+    &_light {
+        background-color: #00dfc4;
+    }
 }
 
 .tasks {
     height: calc(100vh - 350px);
     background-color: rgba(23, 23, 27, 0.92);
     position: relative;
+    &_day {
+        height: calc(100vh - 350px);
+        background-color: rgba(204, 204, 204, 0.92);
+        position: relative;
+    }
     &_container {
-        height: 450px;
+        height: 420px;
         overflow-y: scroll;
         &::-webkit-scrollbar {
             width: 1px;
@@ -30,11 +38,9 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: -22%;
+        top: -35%;
         width: 800px;
         text-align: center;
-        margin-top: -50px;
-        padding-bottom: 50px;
         background-color: rgb(33, 33, 39, .92);
         border: 1px solid #595959;
         border-radius: 5px;
@@ -101,3 +107,54 @@
         }
     }
 }
+
+@media (max-width: 991px) {
+    .tasks {
+        &_content {
+            width: 650px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .tasks {
+        &_content {
+            width: 535px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .tasks {
+        &_content {
+            width: 470px;
+            &-item {
+                &-text {
+                    h4 {
+                        font-size: 14px;
+                    }
+                    span {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+    .start {
+        &_filters {
+            span {
+                margin: 0px 25px;
+            }
+        }
+    }
+}
+
+@media (max-width: 475px) {
+    .tasks {
+        &_content {
+            width: 385px;
+        }
+    }
+}
+
+

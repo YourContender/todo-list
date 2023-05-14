@@ -1,10 +1,13 @@
-import { faSun } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from 'react';
 import './Header.scss'; 
 
-const Header = () => {
+const Header = ({ changeTheme, setChangeTheme }) => {
+    const dayOrNightClass = changeTheme ? 'header_day' : 'header';
+
     return (
-        <div className="header">
+        <div className={dayOrNightClass}>
             <div className="header_container">
                 <div>
                     <h2>TODO-list</h2>
@@ -12,8 +15,8 @@ const Header = () => {
                 </div>
             
                 <div className="header_theme">
-                    <button>
-                        <FontAwesomeIcon icon={faSun}/>
+                    <button onClick={() => setChangeTheme(!changeTheme)}>
+                        {changeTheme ? <FontAwesomeIcon icon={faMoon}/> : <FontAwesomeIcon icon={faSun}/>}
                     </button>
                 </div>
             </div>

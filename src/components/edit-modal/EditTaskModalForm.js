@@ -47,6 +47,9 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
                 editDescr
             )
         );
+
+        setEditTitle('');
+        setEditDescr('');
     }
 
     return (   

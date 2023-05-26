@@ -16,7 +16,6 @@ const Tasks = ({ setShowEditForm, setCurrentUidTask, changeTheme }) => {
     const [filteredTasksList, setFilteredTasksList] = useState([]);
 
     const dayOrNightClass = changeTheme ? 'tasks_day' : 'tasks';
-    const themeTaskContent = changeTheme ? 'tasks_content_light' : 'tasks_content';
 
     const dispatch = useDispatch();
     const tasks = useSelector(elem => elem.tasks.data);

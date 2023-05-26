@@ -4,11 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addNewTaskToDatabase } from '../../redux/actions/actions';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useForm } from "react-hook-form";
 import './Forms.scss';
 
 const Forms = ({ setShowForms }) => {
     const [titleTask, setTitleTask] = useState('');
     const [descrTask, setDescrTask] = useState('');
+
+    const {
+        register,
+        formState: {
+            errors, isValid
+        }, 
+        handleSubmit
+    } = useForm({
+        mode: 'onBlur'
+    });
 
     const dispatch = useDispatch();
     const tasks = useSelector(elem => elem.tasks.data); 
@@ -30,6 +41,7 @@ const Forms = ({ setShowForms }) => {
 
         setTitleTask('');
         setDescrTask('');
+        setShowForms(false);
     }
 
     const enterTextInTitle = (e) => {
@@ -41,7 +53,7 @@ const Forms = ({ setShowForms }) => {
     }
 
     return (
-        <div className="forms">
+        <form className="forms" onSubmit={handleSubmit(createTaskToDatabase)}>
             <button 
                 className="forms_close"
                 onClick={() => setShowForms(false)}    
@@ -50,31 +62,44 @@ const Forms = ({ setShowForms }) => {
             </button>
             <div className="forms_input_box">
                 <input 
+                    {...register('titleTask', {
+                        minLength: 5
+                    })}
                     type="text" 
-                    required='required' 
+                    required
                     value={titleTask}
                     onChange={enterTextInTitle}
                 />
                 <span>Enter title task</span>
+
+                <div className="errors" style={{color: 'red'}}>
+                    {errors ?. titleTask && <p>min length 5 chars</p>}
+                </div>
             </div>
 
             <div className="forms_input_box">
                 <input 
+                    {...register('descrTask', {
+                        minLength: 5
+                    })}
                     type="text" 
-                    required='required' 
+                    required
                     value={descrTask}
                     onChange={enterTextInDescr}
                 />
                 <span>Enter description task</span>
+
+                <div className="errors" style={{color: 'red'}}>
+                    {errors ?. descrTask && <p>min length 5 chars</p>}
+                </div>
             </div>
 
-            <button 
+            <input 
                 className='forms_btn'
-                onClick={createTaskToDatabase}
-            >
-                Submit
-            </button>
-        </div>
+                type='submit'
+                disabled={!isValid}
+            />
+        </form>
     )
 }
 

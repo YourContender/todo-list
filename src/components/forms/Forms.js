@@ -61,7 +61,8 @@ const Forms = ({ setShowForms }) => {
             <div className="forms_input_box">
                 <input 
                     {...register('titleTask', {
-                        minLength: 2
+                        minLength: 2,
+                        maxLength: 45
                     })}
                     type="text" 
                     required='required' 

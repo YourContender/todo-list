@@ -80,8 +80,10 @@
 
 .errors {
     p {
-        margin-top: -20px;
-        margin-bottom: 12px;
+        position: absolute;
+        top: 28px;
+        left: 0;
+        color: red;
     }
 }
 

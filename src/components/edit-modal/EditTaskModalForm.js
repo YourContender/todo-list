@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentTaskFromDatabase } from "../../redux/actions/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { useForm } from "react-hook-form";
 import './EditTaskModalForm.scss';
 
 const EditTaskModalForm = ({ uid, setShowEditForm }) => {
     const [editTitle, setEditTitle] = useState('');
     const [editDescr, setEditDescr] = useState('');
+    const [prevTitle, setPrevTitle] = useState([]);
+    const [prevDescr, setPrevDescr] = useState([]);
 
     const tasks = useSelector(elem => elem.tasks.data);
     const dispatch = useDispatch();
+
+    const {
+        register,
+        formState: {
+            errors, isValid
+        }, 
+        handleSubmit
+    } = useForm({ mode: 'onBlur' });
 
     const enterUpdateTitle = (e) => {
         setEditTitle(e.target.value);
@@ -18,7 +29,17 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
 
     const enterUpdateDescr = (e) => {
         setEditDescr(e.target.value);
-    }
+    }           
+
+    useEffect(() => {
+        Object.values(tasks).filter(item => {
+            if (item.id === uid) {
+                setPrevTitle(item.titleTask);
+                setPrevDescr(item.descrTask);
+            }
+        })
+
+    }, [])
 
     const editCurrentTask = () => {
         const updateListTask = Object.values(tasks).map(item => {
@@ -34,7 +55,7 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
             }
         })
 
-        const currentTask = updateListTask.filter(item => item.id === uid)
+        const currentTask = updateListTask.filter(item => item.id === uid);
 
         setShowEditForm(false);
 
@@ -54,7 +75,7 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
 
     return (   
         <div className="edit">
-            <div className="edit_container">
+            <form className="edit_container" onSubmit={handleSubmit(editCurrentTask)}>
                 <div className="edit_close">
                     <button 
                         className="edit_close-btn"
@@ -66,32 +87,50 @@ const EditTaskModalForm = ({ uid, setShowEditForm }) => {
                 <div>
                     <div className="edit_input-box">
                         <input 
+                            {...register('editTitle', {
+                                minLength: 2
+                            })}
                             type="text" 
-                            required='required' 
+                            required
                             value={editTitle}
                             onChange={enterUpdateTitle}
+                            autoComplete="off"
                         />
-                        <span>update title</span>
+                        <span>{prevTitle}</span>
+
+                        <div className="errors" >
+                            {errors ?. editTitle && <p>min length 2 chars</p>}
+                        </div>
                     </div>
 
                     <div className="edit_input-box">
                         <input 
+                            {...register('editDescr', {
+                                minLength: 2
+                            })}
                             type="text" 
-                            required='required' 
+                            required
                             value={editDescr}
                             onChange={enterUpdateDescr}
+                            autoComplete="off"
                         />
-                        <span>update description</span>
+                        <span>{prevDescr}</span>
+
+                        <div className="errors" style={{color: 'red'}}>
+                            {errors ?. editDescr && <p>min length 2 chars</p>}
+                        </div>
                     </div>
                 </div>
 
-                <button 
+                
+                <input 
                     className="edit_container-btn" 
-                    onClick={editCurrentTask
-                }>
-                    Submit
-                </button>
-            </div>
+                    // onClick={editCurrentTask}
+                    type="submit"
+                    value='Submit'
+                    disabled={!isValid}
+                />
+            </form>
         </div>
     )
 }

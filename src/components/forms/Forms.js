@@ -10,19 +10,17 @@ import './Forms.scss';
 const Forms = ({ setShowForms }) => {
     const [titleTask, setTitleTask] = useState('');
     const [descrTask, setDescrTask] = useState('');
-
+    
+    const dispatch = useDispatch();
+    const tasks = useSelector(elem => elem.tasks.data); 
+    
     const {
         register,
         formState: {
             errors, isValid
         }, 
         handleSubmit
-    } = useForm({
-        mode: 'onBlur'
-    });
-
-    const dispatch = useDispatch();
-    const tasks = useSelector(elem => elem.tasks.data); 
+    } = useForm({ mode: 'onBlur' });
 
     // add task
     const createTaskToDatabase = () => {
@@ -63,34 +61,36 @@ const Forms = ({ setShowForms }) => {
             <div className="forms_input_box">
                 <input 
                     {...register('titleTask', {
-                        minLength: 5
+                        minLength: 2
                     })}
                     type="text" 
-                    required
+                    required='required' 
                     value={titleTask}
                     onChange={enterTextInTitle}
+                    autoComplete="off"
                 />
                 <span>Enter title task</span>
 
-                <div className="errors" style={{color: 'red'}}>
-                    {errors ?. titleTask && <p>min length 5 chars</p>}
+                <div className="errors" >
+                    {errors ?. titleTask && <p>min length 2 chars</p>}
                 </div>
             </div>
 
             <div className="forms_input_box">
                 <input 
                     {...register('descrTask', {
-                        minLength: 5
+                        minLength: 2
                     })}
                     type="text" 
-                    required
+                    required='required' 
                     value={descrTask}
                     onChange={enterTextInDescr}
+                    autoComplete="off"
                 />
                 <span>Enter description task</span>
 
                 <div className="errors" style={{color: 'red'}}>
-                    {errors ?. descrTask && <p>min length 5 chars</p>}
+                    {errors ?. descrTask && <p>min length 2 chars</p>}
                 </div>
             </div>
 
@@ -98,6 +98,7 @@ const Forms = ({ setShowForms }) => {
                 className='forms_btn'
                 type='submit'
                 disabled={!isValid}
+                value='Submit'
             />
         </form>
     )

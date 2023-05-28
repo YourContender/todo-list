@@ -2,7 +2,7 @@
 ---
 
 
-#####В цьому проекті ви можете створювати власний список задач, планів, які необхідно зробити. Завдяки "__google firebase__", ваші записи нікуди не зникнуть і можете повернутись до них в зручний для вас час.
+###В цьому проекті ви можете створювати власний список задач, планів, які необхідно зробити. Завдяки "__google firebase__", ваші записи нікуди не зникнуть і можете повернутись до них в зручний для вас час.
 
 ######_In this project, you can create your own list of tasks, plans that need to be done. Thanks to "google firebase", your records will not disappear anywhere and you can return to them at a time convenient for you._
 
